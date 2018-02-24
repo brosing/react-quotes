@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "fetch": true
+  },
+  "rules": {
+    "space-before-function-paren": [1, "never"]
+  }
+}
