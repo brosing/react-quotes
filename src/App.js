@@ -1,7 +1,10 @@
 import React from 'react'
 
 class App extends React.Component {
-  state = { quotes: null }
+  state = {
+    quotes: null,
+    quote: null
+  }
 
   componentDidMount() {
     const hundredOfQuotes = 'hundredOfQuotes'
@@ -9,35 +12,45 @@ class App extends React.Component {
     const quotes = JSON.parse(localQuotes)
 
     if (localQuotes !== null) {
-      this.setState(() => ({ quotes }))
+      this.setState(() => ({ quotes }), this.setIntervalQuote)
     } else {
-      fetch('https://talaikis.com/api/quotes/')
-        .then(res => res.json())
-        .then(res => {
-          localStorage.setItem(hundredOfQuotes, JSON.stringify(res))
-          this.setState(() => ({ quotes: res }))
-        })
+      this.fetchQuotes(hundredOfQuotes)
     }
   }
 
-  randomQuote = (quotes) => {
-    const choosen = quotes[Math.floor(Math.random() * quotes.length)]
-    return (<div> { choosen.quote }, <p>{choosen.author}</p> </div>)
+  fetchQuotes = (hundredOfQuotes) => {
+    fetch('https://talaikis.com/api/quotes/')
+      .then(res => res.json())
+      .then(res => {
+        localStorage.setItem(hundredOfQuotes, JSON.stringify(res))
+        this.setState(() => ({ quotes: res }), this.setIntervalQuote)
+      })
   }
 
-  renderAllQuotes = () => {
+  getRandomQuotes = () => {
     const { quotes } = this.state
-    return quotes === null
-      ? 'Loading...'
-      : this.randomQuote(quotes)
+    const quote = quotes[Math.floor(Math.random() * quotes.length)]
+    this.setState(() => ({ quote }))
+  }
+
+  setIntervalQuote = () => {
+    this.getRandomQuotes()
+    setInterval(this.getRandomQuotes, 5000)
   }
 
   render() {
-    return (
-      <div>
-        { this.renderAllQuotes() }
-      </div>
-    )
+    const { quote } = this.state
+
+    return quote === null
+      ? (
+        <p>Loading...</p>
+      )
+      : (
+        <div>
+          <p>{ quote.quote }</p>
+          <p>{ quote.author }</p>
+        </div>
+      )
   }
 }
 
