@@ -6,16 +6,16 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 }
 
 :root {
-	--color-text: #fff;
+	--color-text: #222;
 	--color-bg: #000;
 	--color-link: #f9d77e;
-	--color-link-hover: #fff;
+	--color-link-hover: #000;
 	--color-info: #efc453;
 	--glitch-width: 100vw;
 	--glitch-height: 100vh;
 	--gap-horizontal: 10px;
 	--gap-vertical: 5px;
-	--time-anim: 5s;
+	--time-anim: 10s;
 	--delay-anim: 0;
 	--blend-mode-1: none;
 	--blend-mode-2: none;
@@ -61,6 +61,7 @@ body {
 	width: var(--glitch-width);
 	height: var(--glitch-height);
 	overflow: hidden;
+	background-color: #fff;
 }
 
 .glitch__img {
@@ -74,6 +75,7 @@ body {
 	background-size: cover;
 	transform: translate3d(0,0,0);
 	background-blend-mode: var(--blend-mode-1);
+	opacity: 0.5;
 }
 
 .content__text,
@@ -92,7 +94,7 @@ body {
 	font-family: 'IM Fell English', serif;
 	font-size: 2em;
 	font-weight: 400;
-	animation-delay: calc(var(--delay-anim) + var(--time-anim) * 0.8);
+	/* animation-delay: calc(var(--delay-anim) + var(--time-anim) * 0.8); */
 }
 
 .content__title {
@@ -102,7 +104,7 @@ body {
 	font-size: 6em;
 	font-family: 'Playfair Display', serif;
 	text-align: right;
-	animation-delay: calc(var(--delay-anim) + var(--time-anim) * 0.7);
+	/* animation-delay: calc(var(--delay-anim) + var(--time-anim) * 0.7); */
 }
 
 .glitch__img:nth-child(n+2) {
@@ -397,11 +399,11 @@ body {
 
 /* Flash */
 @keyframes glitch-anim-flash {
-	0%, 5% { 
+	0%, 10% { 
 		opacity: 0.2; 
 		transform: translate3d(var(--gap-horizontal), var(--gap-vertical), 0);
 	}
-	5.5%, 100% {
+	10.5%, 100% {
 		opacity: 0;
 		transform: translate3d(0, 0, 0);
 	}
